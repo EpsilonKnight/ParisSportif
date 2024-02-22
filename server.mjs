@@ -20,7 +20,7 @@ app.use('/', async (req, res) => {
   
 
   const competitionId = 2015;
-  const apiUrl = `http://api.football-data.org/v4/competitions/${competitionId}/matches?status=SCHEDULED&matchday=24`;
+  const apiUrl = `http://api.football-data.org/v4/competitions/${competitionId}/matches?status=SCHEDULED`;
   try {
     const response = await fetch(apiUrl, {
       headers: {
@@ -33,8 +33,12 @@ app.use('/', async (req, res) => {
     }
     
     const data = await response.json();
+    //matches est un tableau 
+    const currentMatchday = data.matches[0].season.currentMatchday;
+console.log(currentMatchday);
+const matchesOfCurrentMatchday = data.matches.filter(match => match.matchday === currentMatchday);
  
-  res.json(data);
+  res.json(matchesOfCurrentMatchday);
 
   } catch (error) {
     console.error('Erreur lors de la récupération des données:', error);
