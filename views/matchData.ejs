@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div>
+      <div id="countdown"></div>
+    </div>
+    <div id="matches-container">
+      <% matches.forEach(match => { %>
+      <div class="spaceMatch">
+        <h2>
+          <%# "< %= permets de recupérer les éléments objets %> 
+          <%= match.homeTeam.name %> VS <%= match.awayTeam.name %>
+        </h2>
+        
+        <div>
+          <button>
+            VICTOIRE
+          </button>
+          <button>
+            NUL
+          </button>
+          <button>
+            VICTOIRE
+          </button>
+        </div>
+        <p>Date du match : <%= match.utcDate %></p>
+      </div>
+
+      <% }); %>
+    </div>
+
+
+  </body>
+
+</html>

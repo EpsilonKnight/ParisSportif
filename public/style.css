@@ -1,0 +1,18 @@
+body {
+    margin: 0;
+
+    
+}
+#matches-container{
+    width: 100%;
+    text-align: center;
+    
+}
+
+.spaceMatch{
+    border: 1px solid #fafafa;
+    border-radius: 10px;
+    width: 30rem;
+    margin: 10px;
+    
+}

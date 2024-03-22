@@ -1,0 +1,18 @@
+// Function pour supprimer mes element de ma conllection 
+
+// async function deleteAllDocuments() {
+//     try {
+//         const database = client.db("ApiFoot"); // Remplacez "NomDeVotreBaseDeDonnées" par le nom de votre base de données
+//         const collection = database.collection("USER"); // Remplacez "NomDeVotreCollection" par le nom de votre collection
+
+//         // Supprimer tous les documents de la collection
+//         const result = await collection.deleteMany({});
+
+//         console.log(`${result.deletedCount} documents ont été supprimés.`);
+//     } catch (error) {
+//         console.error("Erreur lors de la suppression des documents :", error);
+//     }
+// }
+
+// Appelez la fonction pour supprimer tous les documents
+// deleteAllDocuments();

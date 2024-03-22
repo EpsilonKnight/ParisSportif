@@ -1,51 +1,30 @@
 import express from 'express';
-import fetch from 'node-fetch';
-//installation de dotenv pour récupérer des données du .env
+import ejs from 'ejs';
 import { config } from 'dotenv';
+import bodyParser from 'body-parser'; // Importez bodyParser depuis le module body-parser
 
-// Load environment variables from .env
+import currentMatch from './currentMatch.js';
+import createUser from './createUser.js';
+
 config();
-
 const app = express();
 const port = 3000;
-// Recupération de la clé APi du .env
-const apiKey = process.env.API_KEY;
-// Utiliser la clé API comme nécessaire dans votre script
-console.log(apiKey);
 
+// Utilisez bodyParser pour analyser les données du formulaire
+//Cela permet à la route createUser de recevoir correctement les données envoyées depuis le formulaire
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-app.use(express.json());
+// Configuration du moteur de modèle EJS
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
-app.use('/', async (req, res) => {
-  
+// Définition des routes
+app.use('/matchData', currentMatch);
+app.use('/createUser', createUser);
 
-  const competitionId = 2015;
-  const apiUrl = `http://api.football-data.org/v4/competitions/${competitionId}/matches?status=SCHEDULED`;
-  try {
-    const response = await fetch(apiUrl, {
-      headers: {
-        'X-Auth-Token': apiKey
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error(`Erreur HTTP! Statut: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    //matches est un tableau 
-    const currentMatchday = data.matches[0].season.currentMatchday;
-console.log(currentMatchday);
-const matchesOfCurrentMatchday = data.matches.filter(match => match.matchday === currentMatchday);
- 
-  res.json(matchesOfCurrentMatchday);
-
-  } catch (error) {
-    console.error('Erreur lors de la récupération des données:', error);
-    res.status(500).json({ error: 'Erreur lors de la récupération des données' });
-  }
-});
-
+// Démarrage du serveur
 app.listen(port, () => {
-  console.log(`Serveur en cours d'exécution sur http://localhost:${port}`);
+    console.log(`Serveur en cours d'exécution sur http://localhost:${port}`);
 });
+
