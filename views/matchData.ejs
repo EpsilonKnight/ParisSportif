@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <h1><%= user.prenom %></h1>
+    <!-- Include the navbar -->
+    <%- include('_navbar.ejs') %>
+    <h1>Bienvenue <%= user.prenom %></h1>
     <div id="matches-container">
       <% matches.forEach(match => { %>
       <div class="spaceMatch">

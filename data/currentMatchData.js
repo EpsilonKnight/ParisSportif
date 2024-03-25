@@ -2,18 +2,11 @@ import express from 'express';
 import fetch from 'node-fetch';
 //installation de dotenv pour récupérer des données du .env
 import { config } from 'dotenv';
-import cookieParser from 'cookie-parser';
 
 const router = express.Router()
 // Load environment variables from .env
 config();
 
-// Utiliser le middleware cookie-parser pour récupérer les cookies
-router.use(cookieParser());
-
-// const app = express();
-// const port = 3000;
-// Recupération de la clé APi du .env
 const apiKey = process.env.API_KEY;
 // Utiliser la clé API comme nécessaire dans mon script
 // console.log(apiKey);
@@ -51,14 +44,8 @@ router.get( '/' , async (req, res) => {
     console.log(currentMatchday);
     const matchesOfCurrentMatchday = data.matches.filter(match => match.matchday === currentMatchday);
   // pour voir le Json des match a venir
-  // res.json(matchesOfCurrentMatchday);
-    //accéder au information user
-
-
-  // Rendu de la vue EJS avec les données que l'on souhaite
-    res.render('matchData', {matches: matchesOfCurrentMatchday, user:user })
-
-  } catch (error) {
+  res.json(matchesOfCurrentMatchday);
+} catch (error) {
     console.error('Erreur lors de la récupération des données:', error);
     res.status(500).json({ error: 'Erreur lors de la récupération des données' });
   }

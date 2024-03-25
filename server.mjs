@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser'
 import currentMatch from './currentMatch.js';
 import createUser from './createUser.js';
 import login from './login.js'
+import currentMatchData from './data/currentMatchData.js'
 
 config();
 const app = express();
@@ -27,6 +28,8 @@ app.use(express.static('public'));
 app.use('/matchData', currentMatch);
 app.use('/createUser', createUser);
 app.use('/login', login);
+app.use('/currentMatchData', currentMatchData);
+
 
 // Démarrage du serveur
 app.listen(port, () => {
