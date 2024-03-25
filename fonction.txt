@@ -16,3 +16,21 @@
 
 // Appelez la fonction pour supprimer tous les documents
 // deleteAllDocuments();
+
+
+
+
+
+
+
+//Fucntion pour généré en console une clé secrete!!!!!!!!!!!!!!!
+// import crypto from 'crypto';
+
+// // Générer une clé secrète aléatoire
+// const generateSecretKey = () => {
+//     const secretKeyLength = 64; // Longueur de la clé en octets
+//     return crypto.randomBytes(secretKeyLength).toString('hex');
+// }
+
+// // Afficher la clé secrète générée
+// console.log('Clé secrète générée :', generateSecretKey());

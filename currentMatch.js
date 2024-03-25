@@ -2,9 +2,14 @@ import express from 'express';
 import fetch from 'node-fetch';
 //installation de dotenv pour récupérer des données du .env
 import { config } from 'dotenv';
+import cookieParser from 'cookie-parser';
+
 const router = express.Router()
 // Load environment variables from .env
 config();
+
+// Utiliser le middleware cookie-parser pour récupérer les cookies
+router.use(cookieParser());
 
 // const app = express();
 // const port = 3000;
@@ -14,8 +19,16 @@ const apiKey = process.env.API_KEY;
 // console.log(apiKey);
 
 
+router.get( '/' , async (req, res) => {
 
-router.use(async (req, res) => {
+  // Récupérer les données utilisateur à partir du cookie
+  const userData = req.cookies.user;
+  if (!userData) {
+    // Si le cookie n'est pas présent, rediriger l'utilisateur vers la page de connexion
+    return res.redirect('/login');
+}
+  const user = JSON.parse(userData);
+  console.log(user.prenom);
   
 
   const competitionId = 2015;
@@ -39,9 +52,11 @@ router.use(async (req, res) => {
     const matchesOfCurrentMatchday = data.matches.filter(match => match.matchday === currentMatchday + 1);
   // pour voir le Json des match a venir
   // res.json(matchesOfCurrentMatchday);
+    //accéder au information user
+
 
   // Rendu de la vue EJS avec les données que l'on souhaite
-    res.render('matchData', {matches: matchesOfCurrentMatchday})
+    res.render('matchData', {matches: matchesOfCurrentMatchday, user:user })
 
   } catch (error) {
     console.error('Erreur lors de la récupération des données:', error);
